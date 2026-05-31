@@ -1,0 +1,49 @@
+name: Go CI
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Verificar formatação Go
+        run: test -z "$(gofmt -l .)"
+
+      - name: Verificar dependências
+        run: |
+          go mod tidy
+          git diff --exit-code
+
+      - name: Rodar análise estática
+        run: go vet ./...
+
+      - name: Executar testes
+        run: go test -v ./...
+
+      - name: Build da aplicação
+        run: go build ./...
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Verificar formatação Terraform
+        run: terraform -chdir=terraform fmt -check
+
+      - name: Inicializar Terraform
+        run: terraform -chdir=terraform init -backend=false
+
+      - name: Validar Terraform
+        run: terraform -chdir=terraform validate
