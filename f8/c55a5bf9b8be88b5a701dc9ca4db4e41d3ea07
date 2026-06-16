@@ -1,0 +1,14 @@
+.github/workflows/ci.yml
+  h_47e39830a29d42 54-56,83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "f8c55a5bf9b8be88b5a701dc9ca4db4e41d3ea07",
+  "prompts": {},
+  "humans": {
+    "h_47e39830a29d42": {
+      "author": "vilopes_meli <vinicius.lopes@mercadolivre.com>"
+    }
+  }
+}
