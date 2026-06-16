@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  trip-weather-deals:
+    image: ghcr.io/lucianakaroli/trip-weather-deals:latest
+    container_name: trip-weather-deals
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
